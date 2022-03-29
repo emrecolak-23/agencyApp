@@ -1,12 +1,18 @@
 // Import Packages
 const express = require("express");
-
+const ejs = require("ejs");
 // Create express app
 const app = express();
 
+// Template Engine
+app.set("view engine","ejs");
+
+// middlewares
+app.use(express.static("public"));
+
 // Page Routes
 app.get("/", (req,res) => {
-  res.send("emre çolak kral");
+  res.render("index");
 })
 
 
