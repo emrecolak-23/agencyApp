@@ -1,0 +1,23 @@
+{
+  "name": "agencyapp",
+  "version": "1.0.0",
+  "description": "portfolio, agency, nodejs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emrecolak-23/agencyApp.git"
+  },
+  "keywords": [
+    "nodejs",
+    "ejs"
+  ],
+  "author": "Emre ÇOLAK",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emrecolak-23/agencyApp/issues"
+  },
+  "homepage": "https://github.com/emrecolak-23/agencyApp#readme"
+}
