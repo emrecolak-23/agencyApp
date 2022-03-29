@@ -1,7 +1,7 @@
 // Import Packages
 const express = require("express");
-const ejs = require("ejs");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 // Import Routes
 const PageRouter = require("./routes/PageRoute");
@@ -14,9 +14,10 @@ app.set("view engine","ejs");
 
 // middlewares
 app.use(express.static("public"));
+app.use(express.static("uploads"))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use(cors());
 // Page Routes
 app.use("/",PageRouter);
 app.use("/project",ProjectRouter);
