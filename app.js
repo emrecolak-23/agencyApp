@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 // Import Routes
 const PageRouter = require("./routes/PageRoute");
-
+const ProjectRouter = require("./routes/ProjectRoute");
 // Create express app
 const app = express();
 
@@ -19,6 +19,7 @@ app.use(express.json());
 
 // Page Routes
 app.use("/",PageRouter);
+app.use("/project",ProjectRouter);
 
 
 // Connect DB
