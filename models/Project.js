@@ -22,6 +22,10 @@ const ProjectSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category"
   },
+  client: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Client"
+  },
   createdAt: {
     type: Date,
     default: Date.now

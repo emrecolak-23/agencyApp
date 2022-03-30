@@ -38,12 +38,21 @@ include("partials/_slider") -%>
                 />
                </div> 
                 <div class="form-group mb-3">
-                  <select name="category" class="form-control">  
+                  <select name="category" class="form-control">
+                    <option value="" disabled selected>Select category</option>    
                     <% for(let i = 0; i<categories.length; i++) { %> 
                     <option value="<%= categories[i]._id %>"><%= categories[i].name %> </option>
                     <% } %> 
                     </select>
-              </div>
+                </div>
+                <div class="form-group mb-3">
+                  <select name="client" class="form-control">
+                    <option value="" disabled selected>Select client</option>  
+                    <% for(let i = 0; i<clients.length; i++) { %> 
+                    <option value="<%= clients[i]._id %>"><%= clients[i].name %> </option>
+                    <% } %> 
+                    </select>
+                </div>
               <div class="form-group"></div>
               <div class="form-group mb-3">
                 <textarea
