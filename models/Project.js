@@ -18,6 +18,10 @@ const ProjectSchema = new Schema({
   image: {
     type: String
   },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category"
+  },
   createdAt: {
     type: Date,
     default: Date.now

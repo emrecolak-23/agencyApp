@@ -6,6 +6,8 @@ const cors = require("cors");
 // Import Routes
 const PageRouter = require("./routes/PageRoute");
 const ProjectRouter = require("./routes/ProjectRoute");
+const CategoryRouter = require("./routes/CategoryRoute");
+const ClientRouter = require("./routes/ClientRoute");
 // Create express app
 const app = express();
 
@@ -19,8 +21,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 // Page Routes
-app.use("/",PageRouter);
+// app.use("/",PageRouter);
 app.use("/project",ProjectRouter);
+app.use("/",PageRouter);
+app.use("/category",CategoryRouter);
+app.use("/client",ClientRouter);
 
 
 // Connect DB
