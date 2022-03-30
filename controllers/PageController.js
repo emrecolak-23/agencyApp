@@ -5,7 +5,9 @@ const Client = require("../models/Client");
 
 exports.getHomePage = async (req, res) => {
 
-  const projects = await Project.find();
+  const projects = await Project.find().sort("-createdAt")
+                                       .populate("category")
+                                       .populate("client")
 
   res.status(200).render("index", {
     projects
