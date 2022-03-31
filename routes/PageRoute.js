@@ -3,7 +3,6 @@ const express = require('express');
 
 // Import Controller
 const PageController = require('../controllers/PageController');
-const ProjectController = require('../controllers/ProjectController');
 
 const router = express.Router();
 

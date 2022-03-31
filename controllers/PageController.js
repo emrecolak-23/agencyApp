@@ -8,9 +8,12 @@ exports.getHomePage = async (req, res) => {
     .sort('-createdAt')
     .populate('category')
     .populate('client');
-
+  
+  const clients = await Client.find()
+    
   res.status(200).render('index', {
     projects,
+    clients
   });
 };
 

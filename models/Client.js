@@ -10,7 +10,9 @@ const ClientSchema = new Schema({
     unique: true,
     required: true
   },
-
+  image: {
+    type: String
+  }
 });
 
 // Create Client Model
