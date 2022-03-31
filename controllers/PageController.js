@@ -12,6 +12,7 @@ exports.getHomePage = async (req, res) => {
   const clients = await Client.find();
 
   res.status(200).render('index', {
+    page_name: 'index',
     projects,
     clients,
   });
@@ -22,6 +23,7 @@ exports.getAddPage = async (req, res) => {
   const clients = await Client.find();
 
   res.status(200).render('add', {
+    page_name: "add",
     categories,
     clients,
   });
@@ -31,22 +33,31 @@ exports.getEditPage = async (req, res) => {
   const project = await Project.findById({ _id: req.params.id });
 
   res.status(200).render('edit', {
+    page_name: 'edit',
     project,
   });
 };
 
 exports.getServicePage = (req, res) => {
-  res.status(200).render('services');
+  res.status(200).render('services',{
+    page_name: "services"
+  });
 };
 
 exports.getAboutPage = (req, res) => {
-  res.status(200).render('about');
+  res.status(200).render('about',{
+    page_name: "about"
+  });
 };
 
 exports.getTeamPage = (req, res) => {
-  res.status(200).render('team');
+  res.status(200).render('team', {
+    page_name: "team"
+  });
 };
 
 exports.getContactPage = (req, res) => {
-  res.status(200).render('contact');
+  res.status(200).render('contact', {
+    page_name: "contact"
+  });
 };
