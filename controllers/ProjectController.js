@@ -11,6 +11,7 @@ exports.createProject = async (req, res) => {
       image: req.file.filename,
       category: req.body.category,
       client: req.body.client,
+      link: req.body.link
     });
     res.status(201).redirect('/');
   } catch (error) {

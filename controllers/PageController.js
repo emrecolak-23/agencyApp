@@ -51,8 +51,8 @@ exports.getAboutPage = (req, res) => {
 };
 
 exports.getTeamPage = (req, res) => {
-  res.status(200).render('team', {
-    page_name: "team"
+  res.status(200).render('career', {
+    page_name: "career"
   });
 };
 

@@ -26,6 +26,9 @@ const ProjectSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Client"
   },
+  link: {
+    type: String
+  },
   createdAt: {
     type: Date,
     default: Date.now
