@@ -25,5 +25,5 @@ let upload = multer({
 router.route("/").post(upload,ProjectController.createProject);
 router.route("/").get(ProjectController.getAllProject);
 router.route("/:id").put(ProjectController.updateProject);
-
+router.route("/:id").delete(ProjectController.deleteProject);
 module.exports = router

@@ -55,7 +55,9 @@
                                             </li>
                                             <li class="mt-3">
                                                 <a class="btn btn-success btn-sm text-uppercase" href="/project/edit/<%= projects[i]._id  %>">Update</a>
-                                                <a class="btn btn-danger btn-sm text-uppercase" href="/projects/edit/<%= projects[i]._id  %>">Delete</a>
+                                                <a class="btn btn-danger btn-sm text-uppercase" href="/project/<%= projects[i]._id%>?_method=DELETE"
+                                                    onclick="return confirm('Are you sure?')"
+                                                    >Delete</a>
                                             </li>
                                         </ul>
 

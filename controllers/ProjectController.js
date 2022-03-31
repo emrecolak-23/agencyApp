@@ -1,10 +1,10 @@
+//Import Packages
+const fs = require('fs');
 // Import Project Model
 const Project = require('../models/Project');
 
 exports.createProject = async (req, res) => {
-
   try {
-
     const project = await Project.create({
       name: req.body.name,
       description: req.body.description,
@@ -13,13 +13,11 @@ exports.createProject = async (req, res) => {
       client: req.body.client,
     });
     res.status(201).redirect('/');
-
-  } catch(error) {
-
+  } catch (error) {
     res.status(400).json({
-      status: "Project not created successfully",
-      error
-    })
+      status: 'Project not created successfully',
+      error,
+    });
   }
 };
 
@@ -32,23 +30,37 @@ exports.getAllProject = async (req, res) => {
 };
 
 exports.updateProject = async (req, res) => {
-  
   try {
-
-    const project = await Project.findOneAndUpdate({_id: req.params.id },{
-      name: req.body.name,
-      description: req.body.description
-    });
+    const project = await Project.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        name: req.body.name,
+        description: req.body.description,
+      }
+    );
     project.save();
     res.status(201).redirect('/');
-
-  } catch(error) {
-
+  } catch (error) {
     res.status(400).json({
-      status: "Project not updated successfully",
-      error
-    })
-
+      status: 'Project not updated successfully',
+      error,
+    });
   }
-  
+};
+
+exports.deleteProject = async (req, res) => {
+  try {
+    const project = await Project.findOne({ _id: req.params.id });
+
+    let deletedImage = __dirname + '/../uploads/' + project.image;
+    fs.unlinkSync(deletedImage);
+
+    await Project.findByIdAndDelete({ _id: req.params.id });
+
+    res.status(200).redirect('/');
+  } catch (error) {
+    res.status(400).json({
+      status: 'Project not successfully deleted',
+    });
+  }
 };
