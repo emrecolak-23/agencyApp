@@ -8,12 +8,12 @@ exports.getHomePage = async (req, res) => {
     .sort('-createdAt')
     .populate('category')
     .populate('client');
-  
-  const clients = await Client.find()
-    
+
+  const clients = await Client.find();
+
   res.status(200).render('index', {
     projects,
-    clients
+    clients,
   });
 };
 
@@ -24,6 +24,14 @@ exports.getAddPage = async (req, res) => {
   res.status(200).render('add', {
     categories,
     clients,
+  });
+};
+
+exports.getEditPage = async (req, res) => {
+  const project = await Project.findById({ _id: req.params.id });
+
+  res.status(200).render('edit', {
+    project,
   });
 };
 
