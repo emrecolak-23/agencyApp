@@ -2,6 +2,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
+const flash = require('connect-flash');
+const session = require('express-session');
 // Import Routes
 const PageRouter = require('./routes/PageRoute');
 const ProjectRouter = require('./routes/ProjectRoute');
@@ -21,6 +23,15 @@ app.use(express.json());
 app.use(methodOverride('_method',{
   methods: ['POST','GET']
 }));
+app.use(session({ cookie: { maxAge: 60000 }, 
+  secret: 'woot',
+  resave: false, 
+  saveUninitialized: false}));
+app.use(flash());
+app.use((req, res, next)=>{
+  res.locals.flashMessages = req.flash();
+  next();
+});
 
 // Page Routes
 app.use('/project', ProjectRouter);

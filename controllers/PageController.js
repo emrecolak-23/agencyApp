@@ -1,6 +1,5 @@
 // Import Packages
-const nodemailer = require("nodemailer");
-
+const nodemailer = require('nodemailer');
 
 // Import Models
 const Category = require('../models/Category');
@@ -8,28 +7,35 @@ const Project = require('../models/Project');
 const Client = require('../models/Client');
 
 exports.getHomePage = async (req, res) => {
-  const page = req.query.page || 1;
-  const projectPerPage = 6;
-  const totalProject = await Project.find().countDocuments();
+  try {
+    const page = req.query.page || 1;
+    const projectPerPage = 6;
+    const totalProject = await Project.find().countDocuments();
 
-  // Get Project From Database
-  const projects = await Project.find()
-    .sort('-createdAt')
-    .populate('category')
-    .populate('client')
-    .skip((page - 1) * projectPerPage)
-    .limit(projectPerPage);
+    // Get Project From Database
+    const projects = await Project.find()
+      .sort('-createdAt')
+      .populate('category')
+      .populate('client')
+      .skip((page - 1) * projectPerPage)
+      .limit(projectPerPage);
 
-  // Get Client from database
-  const clients = await Client.find();
+    // Get Client from database
+    const clients = await Client.find();
 
-  res.status(200).render('index', {
-    page_name: 'index',
-    projects,
-    clients,
-    current: page,
-    pages: Math.ceil(totalProject / projectPerPage),
-  });
+    res.status(200).render('index', {
+      page_name: 'index',
+      projects,
+      clients,
+      current: page,
+      pages: Math.ceil(totalProject / projectPerPage),
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'Home Page Not Loaded Successfuly',
+      error,
+    });
+  }
 };
 
 exports.getAddPage = async (req, res) => {
@@ -46,9 +52,9 @@ exports.getAddPage = async (req, res) => {
     });
   } catch (error) {
     res.status.json({
-      status: "Add page not loaded",
-      error
-    })
+      status: 'Add page not loaded',
+      error,
+    });
   }
 };
 
@@ -58,7 +64,7 @@ exports.getEditPage = async (req, res) => {
     const project = await Project.findOne({ slug: req.params.slug });
     res.status(200).render('edit', {
       page_name: 'edit',
-      project
+      project,
     });
   } catch (error) {
     res.status(400).render('/', {
@@ -100,7 +106,8 @@ exports.getContactPage = (req, res) => {
 };
 
 exports.sendEmail = async (req, res) => {
-  const outputMessage = `
+  try {
+    const outputMessage = `
   <h1>Message Details</h1>
   <ul>
     <li>Name: ${req.body.name}</li>
@@ -109,33 +116,39 @@ exports.sendEmail = async (req, res) => {
   </ul>
   <h1>Message</h1>
   <p>${req.body.message}</p>
-  `
+  `;
 
-  let transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true, // true for 465, false for other ports
-    auth: {
-      user: "nodejs.app.test61@gmail.com", // generated ethereal user
-      pass: "Emco3232", // generated ethereal password
-    },
-  });
+    let transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true, // true for 465, false for other ports
+      auth: {
+        user: 'nodejs.app.test61@gmail.com', // generated ethereal user
+        pass: 'Emco3232', // generated ethereal password
+      },
+    });
 
-  // send mail with defined transport object
-  let info = await transporter.sendMail({
-    from: '"Portfolio Contact Form 👻" <emre@gmail.com>', // sender address
-    to: "colakkemre@gmail.com", // list of receivers
-    subject: "Portfolio New Message ✔", // Subject line
-    text: "Hello world?", // plain text body
-    html: outputMessage, // html body
-  });
+    // send mail with defined transport object
+    let info = await transporter.sendMail({
+      from: '"Portfolio Contact Form 👻" <emre@gmail.com>', // sender address
+      to: 'colakkemre@gmail.com', // list of receivers
+      subject: 'Portfolio New Message ✔', // Subject line
+      text: 'Hello world?', // plain text body
+      html: outputMessage, // html body
+    });
 
-  console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+    console.log('Message sent: %s', info.messageId);
+    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
-  // Preview only available when sending through an Ethereal account
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+    // Preview only available when sending through an Ethereal account
+    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 
-  res.status(200).redirect("/contact")
+    req.flash('success', 'We received your message successfully');
+
+    res.status(200).redirect('/contact');
+  } catch (error) {
+    req.flash('error','Something went wrong! Please try again')
+    res.status(200).redirect('/contact');
+  }
 };

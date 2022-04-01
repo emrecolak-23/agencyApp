@@ -11,14 +11,14 @@ exports.createProject = async (req, res) => {
       image: req.file.filename,
       category: req.body.category,
       client: req.body.client,
-      link: req.body.link
+      link: req.body.link,
     });
+
+    req.flash('success', `${project.name} has been successfully created`);
     res.status(201).redirect('/');
   } catch (error) {
-    res.status(400).json({
-      status: 'Project not created successfully',
-      error,
-    });
+    req.flash('error', 'Project has not been successfully created!');
+    res.status(400).redirect('/');
   }
 };
 

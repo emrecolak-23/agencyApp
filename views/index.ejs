@@ -11,6 +11,17 @@
                 <h2 class="section-heading text-uppercase">Portfolio</h2>
                 <h3 class="section-subheading text-muted">You can find my projects</h3>
             </div>
+            <% if(flashMessages) { %> 
+                <% if(flashMessages.success) { %> 
+              <div id="submitSuccessMessage">
+                  <div class="text-center text-success mb-3">
+                      <div class="fw-bolder"><%= flashMessages.success %> </div>
+                  </div>
+              </div>
+               <% } else if (flashMessages.error) { %> 
+                <div id="submitErrorMessage"><div class="text-center text-danger mb-3"><%= flashMessages.error  %> </div></div>
+                <% } %> 
+              <% } %> 
             <div class="row">
             
                <% for(let i=0;i<projects.length; i++) { %> 
