@@ -5,7 +5,7 @@ const Client = require('../models/Client');
 
 exports.getHomePage = async (req, res) => {
   const page = req.query.page || 1;
-  const projectPerPage = 3;
+  const projectPerPage = 6;
   const totalProject = await Project.find().countDocuments();
 
   // Get Project From Database
@@ -52,7 +52,6 @@ exports.getEditPage = async (req, res) => {
   try {
     // get project from database by slug
     const project = await Project.findOne({ slug: req.params.slug });
-    console.log(project)
     res.status(200).render('edit', {
       page_name: 'edit',
       project
@@ -94,4 +93,8 @@ exports.getContactPage = (req, res) => {
   res.status(200).render('contact', {
     page_name: 'contact',
   });
+};
+
+exports.sendEmail = (req, res) => {
+ console.log("send email");
 };
