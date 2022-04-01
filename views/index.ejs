@@ -13,7 +13,7 @@
             </div>
             <div class="row">
             
-            <% for(let i=0;i<projects.length; i++) { %> 
+               <% for(let i=0;i<projects.length; i++) { %> 
                 <div class="col-lg-4 col-sm-6 mb-4">
                     <!-- Portfolio item 1-->
                     <div class="portfolio-item">
@@ -78,9 +78,34 @@
             </div>
              <% } %>    
             </div>
+            <div class="container">
+                <div class="row">
+                    <nav aria-label="...">
+                        <% if(pages>0) { %> 
+                        <ul class="pagination pagination-lg">
+                          <% for(let i=1;i<=pages;i++) { %> 
+                            <% if(i==current) { %>
+                             <li class="page-item active">
+                                 <a class="page-link" href="/?page=<%= i %>"><%= i %></a> 
+                             </li>   
+                            <% } else if (i < pages) { %>
+                                <li class="page-item">
+                                    <a class="page-link" href="/?page=<%= i %>"><%= i %></a> 
+                                </li> 
+                            <% } else {%>
+                                <li class="page-item">
+                                    <a class="page-link" href="/?page=<%= i %>">></a>
+                                  </li>
+                            <% } %> 
+                          <% } %> 
+                        </ul>
+                        <% } %> 
+                      </nav>    
+                </div>
+            </div>
         </div>
       </section>
-                
+
        <!-- Clients-->
 <div class="py-5">
     <div class="container">

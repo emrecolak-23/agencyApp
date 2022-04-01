@@ -4,22 +4,35 @@ const Project = require('../models/Project');
 const Client = require('../models/Client');
 
 exports.getHomePage = async (req, res) => {
+
+  const page = req.query.page || 1
+  const projectPerPage = 3;
+  const totalProject = await Project.find().countDocuments();
+
+  // Get Project From Database
   const projects = await Project.find()
     .sort('-createdAt')
     .populate('category')
-    .populate('client');
+    .populate('client')
+    .skip((page-1)*projectPerPage)
+    .limit(projectPerPage)
 
+  // Get Client from database
   const clients = await Client.find();
 
   res.status(200).render('index', {
     page_name: 'index',
     projects,
     clients,
+    current: page,
+    pages: Math.ceil(totalProject/projectPerPage)
   });
 };
 
 exports.getAddPage = async (req, res) => {
+  // Get Categories from database
   const categories = await Category.find();
+  // Get client from database
   const clients = await Client.find();
 
   res.status(200).render('add', {
